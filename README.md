@@ -1,6 +1,25 @@
 System V init script template
 =============================
 
+Ubuntu and debian service registration. It executes on boot, provides start|stop|restart apis. 
+
+Tutorial here: http://stackoverflow.com/questions/7221757/run-automatically-program-on-startup-under-linux-ubuntu
+
+sudo mv /filename /etc/init.d/
+sudo chmod +x /etc/init.d/filename 
+sudo update-rc.d filename defaults 
+Script should now start on boot. Note that this method also works with both hard links and symbolic links (ln).
+
+Edit
+
+At this point in the boot process PATH isn't set yet, so it is critical that absolute paths are used throughout. BUT, as pointed out in the comments by Steve HHH, explicitly declaring the full file path (/etc/init.d/filename) for the update-rc.d command is not valid in most versions of Linux. Per the manpage for update-rc.d, the second parameter is a script located in /etc/init.d/*. Updated above code to reflect this.
+
+Another Edit
+
+Also as pointed out in the comments (by Charles Brandt), /filename should be an init style script. A good template was also provided - https://github.com/fhd/init-script-template.
+
+Another link to another article just to avoid possible link rot (although it would be saddening if GitHub died) - http://www.linux.com/learn/tutorials/442412-managing-linux-daemons-with-init-scripts
+
 A simple template for init scripts that provide the start, stop,
 restart and status commands.
 
